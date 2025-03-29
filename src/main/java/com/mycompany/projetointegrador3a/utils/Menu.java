@@ -20,8 +20,9 @@ public class Menu {
                     2. Cadastrar Turma
                     3. Listar Alunos
                     4. Listar Turmas
-                    5. Matricular Aluno em Turma
-                    6. Exibir Alunos Fora da Faixa Etária Prevista
+                    5. Listar Alunos Matriculados em uma Turma
+                    6. Matricular Aluno em Turma
+                    7. Exibir Alunos Fora da Faixa Etária Prevista
                     0. Sair
                     """);
             opcao = scanner.nextInt();
@@ -36,8 +37,9 @@ public class Menu {
             case 2 -> cadastrarTurma();
             case 3 -> alunoService.listarAlunos();
             case 4 -> turmaService.listarTurmas();
-            case 5 -> matricularAlunoEmTurma();
-            case 6 -> exibirAlunosForaDaFaixaEtaria();
+            case 5 -> listarAlunosMatriculadosTurma();
+            case 6 -> matricularAlunoEmTurma();
+            case 7 -> exibirAlunosForaDaFaixaEtaria();
             case 0 -> System.out.println("Saindo...");
             default -> System.out.println("Opção inválida.");
         }
@@ -107,6 +109,19 @@ public class Menu {
                     }
                 },
                 () -> System.out.println("Aluno não encontrado.")
+        );
+    }
+
+    private void listarAlunosMatriculadosTurma() {
+        System.out.print("Código da Turma: ");
+        String codigoTurma = scanner.nextLine();
+    
+        turmaService.buscarTurmaPorCodigo(codigoTurma).ifPresentOrElse(
+                turma -> {
+                    System.out.println("Alunos Matriculados na Turma " + codigoTurma + ":");
+                    turma.listarAlunosMatriculados();
+                },
+                () -> System.out.println("Turma não encontrada.")
         );
     }
 
