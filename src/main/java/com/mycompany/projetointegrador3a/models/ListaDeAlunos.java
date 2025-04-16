@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+import com.mycompany.projetointegrador3a.exceptions.ExcecaoDeAlunoJaExistente;
+
 public class ListaDeAlunos {
     // Lista privada para encapsulamento
     private final List<Aluno> alunos = new ArrayList<>();
@@ -21,6 +23,10 @@ public class ListaDeAlunos {
     public void adicionarNoFim(Aluno aluno) {
         if (aluno == null) {
             throw new IllegalArgumentException("O aluno não pode ser nulo.");
+        }
+
+        if (alunos.contains(aluno)) {
+            throw new ExcecaoDeAlunoJaExistente("Aluno já cadastrado: " + aluno.getNome());
         }
         alunos.add(aluno);
     }

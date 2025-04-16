@@ -1,5 +1,6 @@
 package com.mycompany.projetointegrador3a.controllers;
 
+import com.mycompany.projetointegrador3a.exceptions.ExcecaoDeAlunoJaExistente;
 import com.mycompany.projetointegrador3a.models.Aluno;
 import com.mycompany.projetointegrador3a.models.ListaDeAlunos;
 
@@ -9,8 +10,12 @@ public class AlunoService {
     private final ListaDeAlunos alunos = new ListaDeAlunos();
 
     public void cadastrarAluno(String nome, String cpf, String endereco, String dataNascimento) {
-        alunos.adicionarNoFim(new Aluno(nome, cpf, endereco, dataNascimento));
-        System.out.println("Aluno cadastrado com sucesso!");
+        try {
+            alunos.adicionarNoFim(new Aluno(nome, cpf, endereco, dataNascimento));
+            System.out.println("Aluno cadastrado com sucesso!");
+        } catch (ExcecaoDeAlunoJaExistente e) {
+            System.out.println("Erro ao cadastrar aluno: " + e.getMessage());
+        }
     }
 
     public void listarAlunos() {
