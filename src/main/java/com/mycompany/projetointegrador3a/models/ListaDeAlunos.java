@@ -26,7 +26,7 @@ public class ListaDeAlunos {
         }
 
         if (alunos.contains(aluno)) {
-            throw new ExcecaoDeAlunoJaExistente("Aluno já cadastrado: " + aluno.getNome());
+            throw new ExcecaoDeAlunoJaExistente("Aluno a ser cadastrado está utilizando o mesmo CPF, já cadastrado em nossa base.");
         }
         alunos.add(aluno);
     }
